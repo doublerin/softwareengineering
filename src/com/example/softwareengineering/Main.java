@@ -1,9 +1,5 @@
 package com.example.softwareengineering;
 
-//Класс, предоставляющий простой список, аналогичный массиву,
-//за исключением того, что количество элементов не фиксировано
-import java.util.ArrayList;
-
 import static com.example.softwareengineering.Permission.*;
 
 public class Main {
