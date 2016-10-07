@@ -55,9 +55,6 @@ public class Client {
             try {
                 cmd = parser.parse(options, args);
 
-                if (cmd.hasOption("help")) {
-                    help();
-                }
 
                 if (cmd.hasOption("login")) {
                     Parameters.put("login", cmd.getOptionValue("login"));
@@ -83,7 +80,7 @@ public class Client {
             } catch (ParseException e) {
                 //Если парсинг командной строки прошёл неудачно, то появится сообщение об этом
                 System.err.println("Failed to parse command line properties");
-                help();
+
             }
 
             return Parameters;
@@ -91,14 +88,3 @@ public class Client {
 
 
     }
-
-
-    //Функция служащая для вывода на экран справку
-    //private void help() {
-    private static void help(){
-        // This prints out some help
-        HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("Our options: ", options);
-        System.exit(0);
-    }
-}
