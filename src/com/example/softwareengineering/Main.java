@@ -117,8 +117,12 @@ public class Main {
     private static boolean checkResource(Userdata userdata,
                                          ArrayList<Role> anArrayOfRoles) {
         for (Role anArrayOfRole : anArrayOfRoles) {
+            String res = anArrayOfRole.Resource;
+            //divide(res);
+            anArrayOfRole.Resource.split(res);
             if (userdata.getRole().equals(anArrayOfRole.Name)
                     && userdata.getResource().equals(anArrayOfRole.Resource)) {
+
                 return true;
             }
         }
