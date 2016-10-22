@@ -116,10 +116,12 @@ public class Main {
 
     private static boolean checkResource(Userdata userdata,
                                          ArrayList<Role> anArrayOfRoles) {
+        ArrayList<String> res = new ArrayList<String>();
         for (Role anArrayOfRole : anArrayOfRoles) {
-            String res = anArrayOfRole.Resource;
+            res.add(anArrayOfRole.Resource);
             //divide(res);
-            anArrayOfRole.Resource.split(res);
+            //String elementres = anArrayOfRole.Resource;
+            //anArrayOfRole.Resource.split(res);
             if (userdata.getRole().equals(anArrayOfRole.Name)
                     && userdata.getResource().equals(anArrayOfRole.Resource)) {
 
@@ -127,6 +129,7 @@ public class Main {
             }
         }
         return false;
+
     }
 
     private static String[] divide(String Resource) {
