@@ -1,6 +1,5 @@
 package com.example.softwareengineering;
 
-//Класс больших чисел
 import java.math.BigInteger;
 //То, что помогает генерировать соль\хэш
 import java.security.SecureRandom;
@@ -8,13 +7,12 @@ import java.security.SecureRandom;
 
 public class Secure {
 
-    //Генерируем соль (код найденный на просторах интернета)
     public static String generateSalt(){
         SecureRandom random = new SecureRandom();
         return new BigInteger(130, random).toString(32);
     }
 
-    //Генерируем хэш посредством MD5 (код найденный на просторах интернета)
+
     public static String MD5(String md5) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");

@@ -2,19 +2,19 @@ package com.example.softwareengineering;
 
 public class Userdata {
     private String uLogin;
-    private String arrpassword;
-    private String arrresource;
-    private String arrrole;
+    private String uPassword;
+    private String uResource;
+    private String uRole;
     private String uDate_start;
     private String uDate_end;
     private String uVolume;
 
-    public Userdata(String uLogin, String arrpassword, String arrresource, String arrrole,
+    public Userdata(String uLogin, String uPassword, String uResource, String uRole,
                     String uDate_start, String uDate_end, String uVolume) {
         this.uLogin = uLogin;
-        this.arrpassword = arrpassword;
-        this.arrresource = arrresource;
-        this.arrrole = arrrole;
+        this.uPassword = uPassword;
+        this.uResource = uResource;
+        this.uRole = uRole;
         this.uDate_start = uDate_start;
         this.uDate_end = uDate_end;
         this.uVolume = uVolume;
@@ -22,24 +22,24 @@ public class Userdata {
 
     public Userdata() {
         this.uLogin = null;
-        this.arrpassword = null;
-        this.arrresource = null;
-        this.arrrole = null;
+        this.uPassword = null;
+        this.uResource = null;
+        this.uRole = null;
         this.uDate_start = null;
         this.uDate_end = null;
         this.uVolume = null;
     }
 
     public boolean isEmpty() {
-        return ((uLogin == null) && (arrrole == null) && (arrpassword == null) && (arrresource == null));
+        return ((uLogin == null) && (uPassword == null) && (uRole == null) && (uResource == null));
     }
 
     public boolean authentication() {
-        return ((uLogin != null) && (arrpassword != null));
+        return ((uLogin != null) && (uPassword != null));
     }
 
     public boolean authorization() {
-        return (authentication() && (arrrole != null) && (arrresource != null));
+        return (authentication() && (uRole != null) && (uResource != null));
     }
 
     public boolean accounting() {
@@ -51,15 +51,15 @@ public class Userdata {
     }
 
     public void setPassword(String password) {
-        this.arrpassword = password;
+        this.uPassword = password;
     }
 
     public void setResource(String resource) {
-        this.arrresource = resource;
+        this.uResource = resource;
     }
 
     public void setRole(String role) {
-        this.arrrole = role;
+        this.uRole = role;
     }
 
     public String getLogin() {
@@ -67,15 +67,15 @@ public class Userdata {
     }
 
     public String getPassword() {
-        return arrpassword;
+        return uPassword;
     }
 
     public String getResource() {
-        return arrresource;
+        return uResource;
     }
 
     public String getRole() {
-        return arrrole;
+        return uRole;
     }
 
     public String getuDate_start() {

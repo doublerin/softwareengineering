@@ -1,7 +1,6 @@
 package com.example.softwareengineering;
 
 import org.apache.commons.cli.ParseException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -107,7 +106,7 @@ public class Main {
 
     private static boolean checkLogin(Userdata userdata, ArrayList<User> anArrayOfUsers) {
         for (User anArrayOfUser : anArrayOfUsers) {
-            if (userdata.getLogin().equals(anArrayOfUser.Login)) {
+            if (userdata.getLogin().equals(anArrayOfUser.login)) {
                 return true;
             }
         }
@@ -117,8 +116,8 @@ public class Main {
     private static boolean checkPassword(Userdata userdata, ArrayList<User> anArrayOfUsers) {
         for (User anArrayOfUser : anArrayOfUsers) {
             String temp = Secure.MD5(Secure.MD5(userdata.getPassword()) + anArrayOfUser.getSalt());
-            if (userdata.getLogin().equals(anArrayOfUser.Login)
-                    && temp.equals(anArrayOfUser.Password)) {
+            if (userdata.getLogin().equals(anArrayOfUser.login)
+                    && temp.equals(anArrayOfUser.password)) {
                 return true;
             }
         }
@@ -127,7 +126,7 @@ public class Main {
 
     private static boolean checkRole(Userdata userdata, ArrayList<Role> anArrayOfRoles) {
         for (Role anArrayOfRole : anArrayOfRoles) {
-            if (userdata.getRole().equals(anArrayOfRole.Name)) {
+            if (userdata.getRole().equals(anArrayOfRole.rName)) {
                 return true;
             }
         }
@@ -137,8 +136,8 @@ public class Main {
     private static boolean checkResource(Userdata userdata,
                                          ArrayList<Role> anArrayOfRoles) {
         for (Role anArrayOfRole : anArrayOfRoles) {
-            if (userdata.getRole().equals(anArrayOfRole.Name) &&
-                    divide(anArrayOfRole.Resource, userdata.getResource())) {
+            if (userdata.getRole().equals(anArrayOfRole.rName) &&
+                    divide(anArrayOfRole.rResource, userdata.getResource())) {
                 return true;
             }
         }

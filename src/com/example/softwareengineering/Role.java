@@ -2,15 +2,15 @@ package com.example.softwareengineering;
 
 
 public class Role {
-    public int      Id;
-    public int      User_id;
-    public String      Name;
-    public String   Resource;
+    public int      rId;
+    public int      rUser_id;
+    public String   rName;
+    public String   rResource;
 
     public Role(int id, int user_id, String name, String resource) {
-        Id       = id;
-        User_id  = user_id;
-        Name     = name;
-        Resource = resource;
+        rId       = id;
+        rUser_id  = user_id;
+        rName     = name;
+        rResource = resource;
     }
 }

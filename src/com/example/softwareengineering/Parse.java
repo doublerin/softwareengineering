@@ -2,7 +2,6 @@ package com.example.softwareengineering;
 
 import org.apache.commons.cli.*;
 
-
 public class Parse {
     private Options options = new Options();
     private CommandLine cmdline;
