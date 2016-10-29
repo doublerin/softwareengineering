@@ -2,6 +2,8 @@ package com.example.softwareengineering;
 
 import org.apache.commons.cli.ParseException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Main {
@@ -25,33 +27,25 @@ public class Main {
         if (userdata.isEmpty()) {
             System.exit(0);
         } else if (userdata.authentication()) {
-//            Спрашиваем у класса userdata достаточно ли ему данных для аутентифиц
-//            Хватает
-//
-//            Пытаемся аутентифицировать для всех 3х сценариев,
-//            Если неуспешно то выходим с ошибкой аутент
             tryAuthent(anArrayOfUsers, userdata);
-
-//            Спрашиваем у класса userdata хватает ли ему данных для авториз
             boolean authorization = userdata.authorization();
-//            Не хватает: выходим успешно (т.к.аутентиф вышла бы при неуспехе)
             if (!authorization) {
                 System.exit(0);
-                //            Хватает: Пытаемся авторизировать
             } else {
-                //            Если авториз неуспешна то выходим с ошибкой авториз
-//
-//            Спрашиваем у класса userdata достаточно ли ему данных для акк
-//            не хвтает: выходим успешно (т.к. авториз вышла бы при неуспехе)
-//            хватает: пытаемся акк
                 tryAuthor(anArrayOfRoles, userdata);
             }
-
+            boolean accounting = userdata.accounting();
+            if (!accounting) {
+                System.exit(0);
+            } else {
+                tryAcc(userdata);
+            }
 
         } else {
             System.exit(0);
         }
     }
+
 
     private static void tryAuthent(ArrayList<User> anArrayOfUsers, Userdata userdata) {
         boolean resL = checkLogin(userdata, anArrayOfUsers);
@@ -86,6 +80,22 @@ public class Main {
         }
     }
 
+    private static void tryAcc(Userdata userdata) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate start_date = null;
+        LocalDate end_date = null;
+
+        try {
+            start_date = LocalDate.parse(userdata.getuDate_start(), dtf);
+            end_date = LocalDate.parse(userdata.getuDate_end(), dtf);
+        } catch (java.time.format.DateTimeParseException e) {
+            System.out.println(e);
+            System.exit(5);
+        }
+
+
+    }
+
     private static boolean checkLogin(Userdata userdata, ArrayList<User> anArrayOfUsers) {
         for (User anArrayOfUser : anArrayOfUsers) {
             if (userdata.getLogin().equals(anArrayOfUser.Login)) {
@@ -97,7 +107,7 @@ public class Main {
 
     private static boolean checkPassword(Userdata userdata, ArrayList<User> anArrayOfUsers) {
         for (User anArrayOfUser : anArrayOfUsers) {
-            String temp = Secure.MD5(Secure.MD5(userdata.getPassword())+anArrayOfUser.getSalt());
+            String temp = Secure.MD5(Secure.MD5(userdata.getPassword()) + anArrayOfUser.getSalt());
             if (userdata.getLogin().equals(anArrayOfUser.Login)
                     && temp.equals(anArrayOfUser.Password)) {
                 return true;
@@ -118,8 +128,8 @@ public class Main {
     private static boolean checkResource(Userdata userdata,
                                          ArrayList<Role> anArrayOfRoles) {
         for (Role anArrayOfRole : anArrayOfRoles) {
-            if (userdata.getRole().equals(anArrayOfRole.Name)&&
-                    divide(anArrayOfRole.Resource,userdata.getResource())){
+            if (userdata.getRole().equals(anArrayOfRole.Name) &&
+                    divide(anArrayOfRole.Resource, userdata.getResource())) {
                 return true;
             }
         }

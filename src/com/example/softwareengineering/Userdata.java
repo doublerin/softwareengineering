@@ -43,7 +43,7 @@ public class Userdata {
     }
 
     public boolean accounting() {
-        return (authorization() && (uDate_start != null) && (uDate_end != null) && (uVolume != null));
+        return (authorization() && (uDate_start != null) && (uDate_end != null));
     }
 
 
