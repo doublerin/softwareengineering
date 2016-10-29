@@ -97,8 +97,9 @@ public class Main {
 
     private static boolean checkPassword(Userdata userdata, ArrayList<User> anArrayOfUsers) {
         for (User anArrayOfUser : anArrayOfUsers) {
+            String temp = Secure.MD5(Secure.MD5(userdata.getPassword())+anArrayOfUser.getSalt());
             if (userdata.getLogin().equals(anArrayOfUser.Login)
-                    && userdata.getPassword().equals(anArrayOfUser.Password)) {
+                    && temp.equals(anArrayOfUser.Password)) {
                 return true;
             }
         }
@@ -117,8 +118,8 @@ public class Main {
     private static boolean checkResource(Userdata userdata,
                                          ArrayList<Role> anArrayOfRoles) {
         for (Role anArrayOfRole : anArrayOfRoles) {
-            if (userdata.getRole().equals(anArrayOfRole.getName())&&
-                    divide(anArrayOfRole.getResource(),userdata.getResource())){
+            if (userdata.getRole().equals(anArrayOfRole.Name)&&
+                    divide(anArrayOfRole.Resource,userdata.getResource())){
                 return true;
             }
         }
