@@ -116,37 +116,30 @@ public class Main {
 
     private static boolean checkResource(Userdata userdata,
                                          ArrayList<Role> anArrayOfRoles) {
-        ArrayList<String> res = new ArrayList<String>();
         for (Role anArrayOfRole : anArrayOfRoles) {
-            res.add(anArrayOfRole.Resource);
-            //divide(res);
-            //String elementres = anArrayOfRole.Resource;
-            //anArrayOfRole.Resource.split(res);
-            if (userdata.getRole().equals(anArrayOfRole.Name)
-                    && userdata.getResource().equals(anArrayOfRole.Resource)) {
-
+            if (userdata.getRole().equals(anArrayOfRole.getName())&&
+                    divide(anArrayOfRole.getResource(),userdata.getResource())){
                 return true;
             }
         }
         return false;
 
     }
-//blablabla
-    private static String[] divide(String Resource) {
-        ArrayList<String> divided = new ArrayList<String>();
-        int i = 0;
-        for (int j = 0; j < Resource.length(); j++) {
-            if (Resource.charAt(j) == '.') {
-                if (j > i) {
-                    divided.add(Resource.substring(i, j));
+
+    private static boolean divide(String Resource, String input) {
+        String[] dividedRes;
+        String[] dividedInp;
+        dividedRes = Resource.split("\\.");
+        dividedInp = input.split("\\.");
+        if (dividedInp.length < dividedRes.length) {
+            return false;
+        } else {
+            for (int i = 0; i < dividedRes.length; i++) {
+                if (!dividedRes[i].equals(dividedInp[i])) {
+                    return false;
                 }
-                i = j + i;
             }
         }
-        if (i < Resource.length()) {
-            divided.add(Resource.substring(i));
-        }
-        return divided.toArray(new String[divided.size()]);
+        return true;
     }
 }
-/*******/

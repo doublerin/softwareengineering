@@ -13,4 +13,20 @@ public class Role {
         Name     = name;
         Resource = resource;
     }
+
+    public int getId() {
+        return Id;
+    }
+
+    public int getUser_id() {
+        return User_id;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public String getResource() {
+        return Resource;
+    }
 }
