@@ -84,16 +84,25 @@ public class Main {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate start_date = null;
         LocalDate end_date = null;
+        int vol = 0;
 
         try {
             start_date = LocalDate.parse(userdata.getuDate_start(), dtf);
             end_date = LocalDate.parse(userdata.getuDate_end(), dtf);
         } catch (java.time.format.DateTimeParseException e) {
-            System.out.println(e);
+            System.out.println("Invalid Activity");
             System.exit(5);
         }
-
-
+        try {
+            vol = Integer.valueOf(userdata.getuVolume());
+        } catch (java.lang.NumberFormatException e) {
+            System.out.println("Invalid Activity");
+            System.exit(5);
+        }
+        System.out.println("Successfully Acc.");
+        ArrayList<WastedVolume> wasted = new ArrayList<WastedVolume>();
+        wasted.add(new WastedVolume(userdata.getRole(), userdata.getResource(),
+                start_date, end_date, vol));
     }
 
     private static boolean checkLogin(Userdata userdata, ArrayList<User> anArrayOfUsers) {

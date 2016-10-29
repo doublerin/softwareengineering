@@ -15,7 +15,7 @@ public class Parse {
         options.addOption(new Option("ro", "role", true, "Your Role:"));
         options.addOption(new Option("ds", "date_start", true, "Start Date:"));
         options.addOption(new Option("de", "date_end", true, "End Date:"));
-
+        options.addOption(new Option("vol", "volume", true, "Volume: "));
         options.addOption(new Option("h", "help", false, "Help Information:"));
         this.arg = arg;
     }
@@ -51,6 +51,10 @@ public class Parse {
             if (cmdline.hasOption("de")) {
                 aou.setuDate_end(cmdline.getOptionValue("de"));
                 System.out.println("End Date: " + aou.getuDate_end());
+            }
+            if (cmdline.hasOption("vol")) {
+                aou.setuVolume(cmdline.getOptionValue("vol"));
+                System.out.println("Volume: " + aou.getuVolume());
             }
             if (cmdline.hasOption("h") || aou.isEmpty()) {
                 printhelp(forhelp);

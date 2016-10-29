@@ -43,9 +43,8 @@ public class Userdata {
     }
 
     public boolean accounting() {
-        return (authorization() && (uDate_start != null) && (uDate_end != null));
+        return (authorization() && (uDate_start != null) && (uDate_end != null) && (uVolume != null));
     }
-
 
     public void setLogin(String login) {
         this.uLogin = login;
