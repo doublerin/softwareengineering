@@ -1,4 +1,4 @@
-package com.example.softwareengineering;
+package com.example.software_engineering;
 
 import org.apache.commons.cli.ParseException;
 import java.time.LocalDate;
@@ -99,7 +99,7 @@ public class Main {
             System.exit(5);
         }
         System.out.println("Successfully Acc.");
-        ArrayList<WastedVolume> wasted = new ArrayList<WastedVolume>();
+        ArrayList<WastedVolume> wasted = new ArrayList<>();
         wasted.add(new WastedVolume(userdata.getRole(), userdata.getResource(),
                 start_date, end_date, vol));
     }
@@ -115,7 +115,7 @@ public class Main {
 
     private static boolean checkPassword(Userdata userdata, ArrayList<User> anArrayOfUsers) {
         for (User anArrayOfUser : anArrayOfUsers) {
-            String temp = Secure.MD5(Secure.MD5(userdata.getPassword()) + anArrayOfUser.getSalt());
+            String temp = Secure.md5(Secure.md5(userdata.getPassword()) + anArrayOfUser.salt);
             if (userdata.getLogin().equals(anArrayOfUser.login)
                     && temp.equals(anArrayOfUser.password)) {
                 return true;
@@ -137,7 +137,7 @@ public class Main {
                                          ArrayList<Role> anArrayOfRoles) {
         for (Role anArrayOfRole : anArrayOfRoles) {
             if (userdata.getRole().equals(anArrayOfRole.rName) &&
-                    divide(anArrayOfRole.rResource, userdata.getResource())) {
+                    isDivide(anArrayOfRole.rResource, userdata.getResource())) {
                 return true;
             }
         }
@@ -145,7 +145,7 @@ public class Main {
 
     }
 
-    private static boolean divide(String Resource, String input) {
+    private static boolean isDivide(String Resource, String input) {
         String[] dividedRes;
         String[] dividedInp;
         dividedRes = Resource.split("\\.");

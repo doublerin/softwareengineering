@@ -1,4 +1,4 @@
-package com.example.softwareengineering;
+package com.example.software_engineering;
 
 public class Userdata {
     private String uLogin;
@@ -8,17 +8,6 @@ public class Userdata {
     private String uDate_start;
     private String uDate_end;
     private String uVolume;
-
-    public Userdata(String uLogin, String uPassword, String uResource, String uRole,
-                    String uDate_start, String uDate_end, String uVolume) {
-        this.uLogin = uLogin;
-        this.uPassword = uPassword;
-        this.uResource = uResource;
-        this.uRole = uRole;
-        this.uDate_start = uDate_start;
-        this.uDate_end = uDate_end;
-        this.uVolume = uVolume;
-    }
 
     public Userdata() {
         this.uLogin = null;

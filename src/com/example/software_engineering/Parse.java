@@ -1,4 +1,4 @@
-package com.example.softwareengineering;
+package com.example.software_engineering;
 
 import org.apache.commons.cli.*;
 
@@ -56,17 +56,17 @@ public class Parse {
                 System.out.println("Volume: " + aou.getuVolume());
             }
             if (cmdline.hasOption("h") || aou.isEmpty()) {
-                printhelp(forhelp);
+                printHelp(forhelp);
             }
 
 
         } catch (ParseException e) {
-            printhelp(forhelp);
+            printHelp(forhelp);
         }
         return aou;
     }
 
-    private void printhelp(HelpFormatter forhelp) {
+    private void printHelp(HelpFormatter forhelp) {
         forhelp.printHelp("HEEELP", "This is help-information", options, "The End");
 
     }

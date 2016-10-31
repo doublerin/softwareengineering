@@ -1,4 +1,4 @@
-package com.example.softwareengineering;
+package com.example.software_engineering;
 
 import java.time.LocalDate;
 
@@ -15,12 +15,5 @@ public class WastedVolume {
         this.wDS = wDS;
         this.wDE = wDE;
         this.wVol = wVol;
-    }
-    public WastedVolume() {
-        this.wRole = null;
-        this.wRes = null;
-        this.wDS = null;
-        this.wDE = null;
-        this.wVol = 0;
     }
 }

@@ -1,5 +1,4 @@
-package com.example.softwareengineering;
-
+package com.example.software_engineering;
 
 public class Role {
     public int      rId;

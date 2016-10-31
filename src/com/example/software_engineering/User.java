@@ -1,4 +1,4 @@
-package com.example.softwareengineering;
+package com.example.software_engineering;
 
 class User {
     public int id;
@@ -11,12 +11,8 @@ class User {
         this.id = id;
         this.login = login;
         this.salt = Secure.generateSalt();
-        this.password = Secure.MD5(Secure.MD5(password) + salt);
+        this.password = Secure.md5(Secure.md5(password) + salt);
         this.name = name;
 
-    }
-
-    public String getSalt() {
-        return salt;
     }
 }
