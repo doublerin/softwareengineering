@@ -1,6 +1,7 @@
 package com.example.software_engineering;
 
 import org.apache.commons.cli.ParseException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,9 +24,8 @@ public class Main {
         anArrayOfRoles.add(new Role(4, 1, "EXECUTE", "a.bc"));
 
         Userdata userdata = new Parse(arg).parseCMD();
-        if (userdata.isEmpty()) {
-            System.exit(0);
-        } else if (userdata.isAuthentication()) {
+
+        if (userdata.isAuthentication()) {
             tryAuthent(anArrayOfUsers, userdata);
             if (!userdata.isAuthorization()) {
                 System.exit(0);

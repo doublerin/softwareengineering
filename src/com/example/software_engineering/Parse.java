@@ -55,10 +55,9 @@ public class Parse {
                 aou.setuVolume(cmdline.getOptionValue("vol"));
                 System.out.println("Volume: " + aou.getuVolume());
             }
-            if (cmdline.hasOption("h") || aou.isEmpty()) {
+            if (cmdline.hasOption("h") || aou.isAuthorization()) {
                 printHelp(forhelp);
             }
-
 
         } catch (ParseException e) {
             printHelp(forhelp);

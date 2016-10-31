@@ -9,18 +9,14 @@ public class Userdata {
     private String uDate_end;
     private String uVolume;
 
-//    public Userdata() {
-////        this.uLogin = null;
-////        this.uPassword = null;
-////        this.uResource = null;
-////        this.uRole = null;
-////        this.uDate_start = null;
-////        this.uDate_end = null;
-////        this.uVolume = null;
-//    }
-
-    public boolean isEmpty() {
-        return ((uLogin == null) && (uPassword == null) && (uRole == null) && (uResource == null));
+    public Userdata() {
+        this.uLogin = null;
+        this.uPassword = null;
+        this.uResource = null;
+        this.uRole = null;
+        this.uDate_start = null;
+        this.uDate_end = null;
+        this.uVolume = null;
     }
 
     public boolean isAuthentication() {

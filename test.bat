@@ -35,3 +35,6 @@ java -cp "out\artifacts\softwareengineering\soft.jar" com.example.software_engin
 echo !!! %errorlevel%
 java -cp "out\artifacts\softwareengineering\soft.jar" com.example.software_engineering.Main -l QQQQ -p QQQQ -ro READ -re QQQQ > NUL
 echo !!! %errorlevel%
+
+java -cp "out\artifacts\softwareengineering\soft.jar" com.example.software_engineering.Main -l jdoe -p sup3rpaZZ -re a.b > NUL
+echo !!! %errorlevel%
