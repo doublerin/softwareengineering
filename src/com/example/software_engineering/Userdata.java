@@ -9,30 +9,30 @@ public class Userdata {
     private String uDate_end;
     private String uVolume;
 
-    public Userdata() {
-        this.uLogin = null;
-        this.uPassword = null;
-        this.uResource = null;
-        this.uRole = null;
-        this.uDate_start = null;
-        this.uDate_end = null;
-        this.uVolume = null;
-    }
+//    public Userdata() {
+////        this.uLogin = null;
+////        this.uPassword = null;
+////        this.uResource = null;
+////        this.uRole = null;
+////        this.uDate_start = null;
+////        this.uDate_end = null;
+////        this.uVolume = null;
+//    }
 
     public boolean isEmpty() {
         return ((uLogin == null) && (uPassword == null) && (uRole == null) && (uResource == null));
     }
 
-    public boolean authentication() {
+    public boolean isAuthentication() {
         return ((uLogin != null) && (uPassword != null));
     }
 
-    public boolean authorization() {
-        return (authentication() && (uRole != null) && (uResource != null));
+    public boolean isAuthorization() {
+        return (isAuthentication() && (uRole != null) && (uResource != null));
     }
 
-    public boolean accounting() {
-        return (authorization() && (uDate_start != null) && (uDate_end != null) && (uVolume != null));
+    public boolean isAccounting() {
+        return (isAuthorization() && (uDate_start != null) && (uDate_end != null) && (uVolume != null));
     }
 
     public void setLogin(String login) {

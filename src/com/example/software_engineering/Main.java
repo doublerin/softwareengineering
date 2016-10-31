@@ -9,8 +9,8 @@ public class Main {
 
     public static void main(String[] arg) throws ParseException {
 
-        ArrayList<User> anArrayOfUsers = new ArrayList<User>();
-        ArrayList<Role> anArrayOfRoles = new ArrayList<Role>();
+        ArrayList<User> anArrayOfUsers = new ArrayList<>();
+        ArrayList<Role> anArrayOfRoles = new ArrayList<>();
 
 
         anArrayOfUsers.add(new User(1, "jdoe", "sup3rpaZZ", "John Doe"));
@@ -25,16 +25,14 @@ public class Main {
         Userdata userdata = new Parse(arg).parseCMD();
         if (userdata.isEmpty()) {
             System.exit(0);
-        } else if (userdata.authentication()) {
+        } else if (userdata.isAuthentication()) {
             tryAuthent(anArrayOfUsers, userdata);
-            boolean authorization = userdata.authorization();
-            if (!authorization) {
+            if (!userdata.isAuthorization()) {
                 System.exit(0);
             } else {
                 tryAuthor(anArrayOfRoles, userdata);
             }
-            boolean accounting = userdata.accounting();
-            if (!accounting) {
+            if (!userdata.isAccounting()) {
                 System.exit(0);
             } else {
                 tryAcc(userdata);
@@ -47,10 +45,8 @@ public class Main {
 
 
     private static void tryAuthent(ArrayList<User> anArrayOfUsers, Userdata userdata) {
-        boolean resL = checkLogin(userdata, anArrayOfUsers);
-        if (resL) {
-            boolean resP = checkPassword(userdata, anArrayOfUsers);
-            if (resP) {
+        if (isCorrectLogin(userdata, anArrayOfUsers)) {
+            if (isCorrectPassword(userdata, anArrayOfUsers)) {
                 System.out.println("Successfully Authent.");
 
             } else {
@@ -64,10 +60,8 @@ public class Main {
     }
 
     private static void tryAuthor(ArrayList<Role> anArrayOfRoles, Userdata userdata) {
-        boolean resRo = checkRole(userdata, anArrayOfRoles);
-        if (resRo) {
-            boolean resRe = checkResource(userdata, anArrayOfRoles);
-            if (resRe) {
+        if (isCorrectRole(userdata, anArrayOfRoles)) {
+            if (isCorrectResource(userdata, anArrayOfRoles)) {
                 System.out.println("Successfully Author.");
             } else {
                 System.out.println("Doesn't exist");
@@ -104,7 +98,7 @@ public class Main {
                 start_date, end_date, vol));
     }
 
-    private static boolean checkLogin(Userdata userdata, ArrayList<User> anArrayOfUsers) {
+    private static boolean isCorrectLogin(Userdata userdata, ArrayList<User> anArrayOfUsers) {
         for (User anArrayOfUser : anArrayOfUsers) {
             if (userdata.getLogin().equals(anArrayOfUser.login)) {
                 return true;
@@ -113,7 +107,7 @@ public class Main {
         return false;
     }
 
-    private static boolean checkPassword(Userdata userdata, ArrayList<User> anArrayOfUsers) {
+    private static boolean isCorrectPassword(Userdata userdata, ArrayList<User> anArrayOfUsers) {
         for (User anArrayOfUser : anArrayOfUsers) {
             String temp = Secure.md5(Secure.md5(userdata.getPassword()) + anArrayOfUser.salt);
             if (userdata.getLogin().equals(anArrayOfUser.login)
@@ -124,7 +118,7 @@ public class Main {
         return false;
     }
 
-    private static boolean checkRole(Userdata userdata, ArrayList<Role> anArrayOfRoles) {
+    private static boolean isCorrectRole(Userdata userdata, ArrayList<Role> anArrayOfRoles) {
         for (Role anArrayOfRole : anArrayOfRoles) {
             if (userdata.getRole().equals(anArrayOfRole.rName)) {
                 return true;
@@ -133,8 +127,8 @@ public class Main {
         return false;
     }
 
-    private static boolean checkResource(Userdata userdata,
-                                         ArrayList<Role> anArrayOfRoles) {
+    private static boolean isCorrectResource(Userdata userdata,
+                                             ArrayList<Role> anArrayOfRoles) {
         for (Role anArrayOfRole : anArrayOfRoles) {
             if (userdata.getRole().equals(anArrayOfRole.rName) &&
                     isDivide(anArrayOfRole.rResource, userdata.getResource())) {
