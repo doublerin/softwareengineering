@@ -1,4 +1,4 @@
-package com.example.software_engineering;
+package com.example.softwareengineering;
 
 import org.apache.commons.cli.ParseException;
 
@@ -18,10 +18,10 @@ public class Main {
         anArrayOfUsers.add(new User(2, "jrow", "Qweqrty12", "Jane Row"));
 
 
-        anArrayOfRoles.add(new Role(1, 1, "READ", "a"));
-        anArrayOfRoles.add(new Role(2, 1, "WRITE", "a.b"));
-        anArrayOfRoles.add(new Role(3, 2, "EXECUTE", "a.b.c"));
-        anArrayOfRoles.add(new Role(4, 1, "EXECUTE", "a.bc"));
+        anArrayOfRoles.add(new Role(1, 1, Permission.READ, "a"));
+        anArrayOfRoles.add(new Role(2, 1, Permission.WRITE, "a.b"));
+        anArrayOfRoles.add(new Role(3, 2, Permission.EXECUTE, "a.b.c"));
+        anArrayOfRoles.add(new Role(4, 1, Permission.EXECUTE, "a.bc"));
 
         Userdata userdata = new Parse(arg).parseCMD();
 
@@ -60,7 +60,7 @@ public class Main {
     }
 
     private static void tryAuthor(ArrayList<Role> anArrayOfRoles, Userdata userdata) {
-        if (isCorrectRole(userdata, anArrayOfRoles)) {
+        if (isCorrectRole(userdata)) {
             if (isCorrectResource(userdata, anArrayOfRoles)) {
                 System.out.println("Successfully Author.");
             } else {
@@ -118,19 +118,21 @@ public class Main {
         return false;
     }
 
-    private static boolean isCorrectRole(Userdata userdata, ArrayList<Role> anArrayOfRoles) {
-        for (Role anArrayOfRole : anArrayOfRoles) {
-            if (userdata.getRole().equals(anArrayOfRole.rName)) {
-                return true;
-            }
+    private static boolean isCorrectRole(Userdata userdata) {
+        try {
+            Permission.valueOf(userdata.getRole());
+            return true;
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return false;
         }
-        return false;
+
     }
 
     private static boolean isCorrectResource(Userdata userdata,
                                              ArrayList<Role> anArrayOfRoles) {
         for (Role anArrayOfRole : anArrayOfRoles) {
-            if (userdata.getRole().equals(anArrayOfRole.rName) &&
+            if (userdata.getPermission().equals(anArrayOfRole.rName) &&
                     isDivide(anArrayOfRole.rResource, userdata.getResource())) {
                 return true;
             }

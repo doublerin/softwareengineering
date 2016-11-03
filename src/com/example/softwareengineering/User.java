@@ -1,4 +1,4 @@
-package com.example.software_engineering;
+package com.example.softwareengineering;
 
 class User {
     public int id;

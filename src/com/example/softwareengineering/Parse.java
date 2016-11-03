@@ -1,13 +1,13 @@
-package com.example.software_engineering;
+package com.example.softwareengineering;
 
 import org.apache.commons.cli.*;
 
-public class Parse {
+class Parse {
     private Options options = new Options();
     private CommandLine cmdline;
     private String[] arg;
 
-    public Parse(String[] arg) {
+    Parse(String[] arg) {
         options.addOption(new Option("l", "login", true, "Your Login:"));
         options.addOption(new Option("p", "password", true, "Your Password:"));
         options.addOption(new Option("re", "resource", true, "Your Resource:"));
@@ -19,7 +19,7 @@ public class Parse {
         this.arg = arg;
     }
 
-    public Userdata parseCMD() throws ParseException {
+    Userdata parseCMD() throws ParseException {
         CommandLineParser cmdLinePosixParser = new PosixParser();
         HelpFormatter forhelp = new HelpFormatter();
         Userdata aou = new Userdata();
@@ -55,7 +55,7 @@ public class Parse {
                 aou.setuVolume(cmdline.getOptionValue("vol"));
                 System.out.println("Volume: " + aou.getuVolume());
             }
-            if (cmdline.hasOption("h") || aou.isAuthorization()) {
+            if (cmdline.hasOption("h")||aou.isEmpty()) {
                 printHelp(forhelp);
             }
 

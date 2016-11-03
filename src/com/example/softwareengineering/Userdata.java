@@ -1,6 +1,6 @@
-package com.example.software_engineering;
+package com.example.softwareengineering;
 
-public class Userdata {
+class Userdata {
     private String uLogin;
     private String uPassword;
     private String uResource;
@@ -9,7 +9,7 @@ public class Userdata {
     private String uDate_end;
     private String uVolume;
 
-    public Userdata() {
+    Userdata() {
         this.uLogin = null;
         this.uPassword = null;
         this.uResource = null;
@@ -19,71 +19,80 @@ public class Userdata {
         this.uVolume = null;
     }
 
-    public boolean isAuthentication() {
+    boolean isEmpty() {
+        return((uLogin==null)&&(uPassword==null)&&(uRole==null)&&(uResource==null)&&(uDate_start==null)
+                &&(uDate_end==null)&&(uVolume==null));
+    }
+
+    boolean isAuthentication() {
         return ((uLogin != null) && (uPassword != null));
     }
 
-    public boolean isAuthorization() {
+    boolean isAuthorization() {
         return (isAuthentication() && (uRole != null) && (uResource != null));
     }
 
-    public boolean isAccounting() {
+    boolean isAccounting() {
         return (isAuthorization() && (uDate_start != null) && (uDate_end != null) && (uVolume != null));
     }
 
-    public void setLogin(String login) {
+    Permission getPermission() {
+        return Permission.valueOf(uRole);
+    }
+
+    void setLogin(String login) {
         this.uLogin = login;
     }
 
-    public void setPassword(String password) {
+    void setPassword(String password) {
         this.uPassword = password;
     }
 
-    public void setResource(String resource) {
+    void setResource(String resource) {
         this.uResource = resource;
     }
 
-    public void setRole(String role) {
+    void setRole(String role) {
         this.uRole = role;
     }
 
-    public String getLogin() {
+    String getLogin() {
         return uLogin;
     }
 
-    public String getPassword() {
+    String getPassword() {
         return uPassword;
     }
 
-    public String getResource() {
+    String getResource() {
         return uResource;
     }
 
-    public String getRole() {
+    String getRole() {
         return uRole;
     }
 
-    public String getuDate_start() {
+    String getuDate_start() {
         return uDate_start;
     }
 
-    public void setuDate_start(String uDate_start) {
+    void setuDate_start(String uDate_start) {
         this.uDate_start = uDate_start;
     }
 
-    public String getuDate_end() {
+    String getuDate_end() {
         return uDate_end;
     }
 
-    public void setuDate_end(String uDate_end) {
+    void setuDate_end(String uDate_end) {
         this.uDate_end = uDate_end;
     }
 
-    public String getuVolume() {
+    String getuVolume() {
         return uVolume;
     }
 
-    public void setuVolume(String uVolume) {
+    void setuVolume(String uVolume) {
         this.uVolume = uVolume;
     }
 }
