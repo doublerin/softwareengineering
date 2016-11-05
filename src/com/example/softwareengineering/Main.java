@@ -13,15 +13,13 @@ public class Main {
         ArrayList<User> anArrayOfUsers = new ArrayList<>();
         ArrayList<Role> anArrayOfRoles = new ArrayList<>();
 
-
         anArrayOfUsers.add(new User(1, "jdoe", "sup3rpaZZ", "John Doe"));
         anArrayOfUsers.add(new User(2, "jrow", "Qweqrty12", "Jane Row"));
 
-
-        anArrayOfRoles.add(new Role(1, 1, Permission.READ, "a"));
-        anArrayOfRoles.add(new Role(2, 1, Permission.WRITE, "a.b"));
-        anArrayOfRoles.add(new Role(3, 2, Permission.EXECUTE, "a.b.c"));
-        anArrayOfRoles.add(new Role(4, 1, Permission.EXECUTE, "a.bc"));
+        anArrayOfRoles.add(new Role(1, anArrayOfUsers.get(0), Permission.READ, "a"));
+        anArrayOfRoles.add(new Role(2, anArrayOfUsers.get(0), Permission.WRITE, "a.b"));
+        anArrayOfRoles.add(new Role(3, anArrayOfUsers.get(1), Permission.EXECUTE, "a.b.c"));
+        anArrayOfRoles.add(new Role(4, anArrayOfUsers.get(0), Permission.EXECUTE, "a.bc"));
 
         Userdata userdata = new Parse(arg).parseCMD();
 
@@ -75,13 +73,13 @@ public class Main {
 
     private static void tryAcc(Userdata userdata) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate start_date = null;
-        LocalDate end_date = null;
+        LocalDate startDate = null;
+        LocalDate endDate = null;
         int vol = 0;
 
         try {
-            start_date = LocalDate.parse(userdata.getDateStart(), dtf);
-            end_date = LocalDate.parse(userdata.getDateEnd(), dtf);
+            startDate = LocalDate.parse(userdata.getDateStart(), dtf);
+            endDate = LocalDate.parse(userdata.getDateEnd(), dtf);
         } catch (java.time.format.DateTimeParseException e) {
             System.out.println("Invalid Activity");
             System.exit(5);
@@ -95,12 +93,12 @@ public class Main {
         System.out.println("Successfully Acc.");
         ArrayList<WastedVolume> wasted = new ArrayList<>();
         wasted.add(new WastedVolume(userdata.getRole(), userdata.getResource(),
-                start_date, end_date, vol));
+                startDate, endDate, vol));
     }
 
     private static boolean isCorrectLogin(Userdata userdata, ArrayList<User> anArrayOfUsers) {
         for (User anArrayOfUser : anArrayOfUsers) {
-            if (userdata.getLogin().equals(anArrayOfUser.login)) {
+            if (userdata.getLogin().equals(anArrayOfUser.getLogin())) {
                 return true;
             }
         }
@@ -109,9 +107,9 @@ public class Main {
 
     private static boolean isCorrectPassword(Userdata userdata, ArrayList<User> anArrayOfUsers) {
         for (User anArrayOfUser : anArrayOfUsers) {
-            String temp = Secure.md5(Secure.md5(userdata.getPassword()) + anArrayOfUser.salt);
-            if (userdata.getLogin().equals(anArrayOfUser.login)
-                    && temp.equals(anArrayOfUser.password)) {
+            String temp = Secure.md5(Secure.md5(userdata.getPassword()) + anArrayOfUser.getSalt());
+            if (userdata.getLogin().equals(anArrayOfUser.getLogin())
+                    && temp.equals(anArrayOfUser.getPassword())) {
                 return true;
             }
         }
@@ -130,9 +128,11 @@ public class Main {
 
     private static boolean isCorrectResource(Userdata userdata,
                                              ArrayList<Role> anArrayOfRoles) {
-        for (Role anArrayOfRole : anArrayOfRoles) {
-            if (userdata.getPermission().equals(anArrayOfRole.name) &&
-                    isDivide(anArrayOfRole.resource, userdata.getResource())) {
+        for (Role role : anArrayOfRoles) {
+            if (userdata.getPermission().equals(role.name) &&
+                    isDivide(role.resource, userdata.getResource())
+                    && (userdata.getLogin().equals(role.getUser().getLogin()))
+                    ) {
                 return true;
             }
         }

@@ -1,6 +1,6 @@
 package com.example.softwareengineering;
 
-public enum Permission {
+enum Permission {
     READ,
     WRITE,
     EXECUTE

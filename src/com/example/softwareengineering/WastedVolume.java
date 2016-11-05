@@ -2,14 +2,34 @@ package com.example.softwareengineering;
 
 import java.time.LocalDate;
 
-public class WastedVolume {
-    public String role;
-    public String res;
-    public LocalDate dateStart;
-    public LocalDate dateEnd;
-    public int volume;
+class WastedVolume {
+    public String getRole() {
+        return role;
+    }
 
-    public WastedVolume(String role, String res, LocalDate dateStart, LocalDate dateEnd, int volume) {
+    public String getRes() {
+        return res;
+    }
+
+    public LocalDate getDateStart() {
+        return dateStart;
+    }
+
+    public LocalDate getDateEnd() {
+        return dateEnd;
+    }
+
+    public int getVolume() {
+        return volume;
+    }
+
+    private String role;
+    private String res;
+    private LocalDate dateStart;
+    private LocalDate dateEnd;
+    private int volume;
+
+    WastedVolume(String role, String res, LocalDate dateStart, LocalDate dateEnd, int volume) {
         this.role = role;
         this.res = res;
         this.dateStart = dateStart;

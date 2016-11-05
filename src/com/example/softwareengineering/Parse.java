@@ -4,7 +4,6 @@ import org.apache.commons.cli.*;
 
 class Parse {
     private Options options = new Options();
-    private CommandLine cmdline;
     private String[] arg;
 
     Parse(String[] arg) {
@@ -20,11 +19,11 @@ class Parse {
     }
 
     Userdata parseCMD() throws ParseException {
-        CommandLineParser cmdLinePosixParser = new PosixParser();
+        CommandLineParser cmdLinePosixParser = new DefaultParser();
         HelpFormatter forhelp = new HelpFormatter();
         Userdata aou = new Userdata();
         try {
-            cmdline = cmdLinePosixParser.parse(options, arg);
+            CommandLine cmdline = cmdLinePosixParser.parse(options, arg);
             if (cmdline.hasOption("l")) {
                 aou.setLogin(cmdline.getOptionValue("l"));
                 System.out.println("Login: " + aou.getLogin());
