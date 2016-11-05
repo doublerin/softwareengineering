@@ -1,98 +1,98 @@
 package com.example.softwareengineering;
 
 class Userdata {
-    private String uLogin;
-    private String uPassword;
-    private String uResource;
-    private String uRole;
-    private String uDate_start;
-    private String uDate_end;
-    private String uVolume;
+    private String login;
+    private String password;
+    private String resource;
+    private String role;
+    private String dateStart;
+    private String dateEnd;
+    private String volume;
 
     Userdata() {
-        this.uLogin = null;
-        this.uPassword = null;
-        this.uResource = null;
-        this.uRole = null;
-        this.uDate_start = null;
-        this.uDate_end = null;
-        this.uVolume = null;
+        this.login = null;
+        this.password = null;
+        this.resource = null;
+        this.role = null;
+        this.dateStart = null;
+        this.dateEnd = null;
+        this.volume = null;
     }
 
     boolean isEmpty() {
-        return((uLogin==null)&&(uPassword==null)&&(uRole==null)&&(uResource==null)&&(uDate_start==null)
-                &&(uDate_end==null)&&(uVolume==null));
+        return((login ==null)&&(password ==null)&&(role ==null)&&(resource ==null)&&(dateStart ==null)
+                &&(dateEnd ==null)&&(volume ==null));
     }
 
     boolean isAuthentication() {
-        return ((uLogin != null) && (uPassword != null));
+        return ((login != null) && (password != null));
     }
 
     boolean isAuthorization() {
-        return (isAuthentication() && (uRole != null) && (uResource != null));
+        return (isAuthentication() && (role != null) && (resource != null));
     }
 
     boolean isAccounting() {
-        return (isAuthorization() && (uDate_start != null) && (uDate_end != null) && (uVolume != null));
+        return (isAuthorization() && (dateStart != null) && (dateEnd != null) && (volume != null));
     }
 
     Permission getPermission() {
-        return Permission.valueOf(uRole);
+        return Permission.valueOf(role);
     }
 
     void setLogin(String login) {
-        this.uLogin = login;
+        this.login = login;
     }
 
     void setPassword(String password) {
-        this.uPassword = password;
+        this.password = password;
     }
 
     void setResource(String resource) {
-        this.uResource = resource;
+        this.resource = resource;
     }
 
     void setRole(String role) {
-        this.uRole = role;
+        this.role = role;
     }
 
     String getLogin() {
-        return uLogin;
+        return login;
     }
 
     String getPassword() {
-        return uPassword;
+        return password;
     }
 
     String getResource() {
-        return uResource;
+        return resource;
     }
 
     String getRole() {
-        return uRole;
+        return role;
     }
 
-    String getuDate_start() {
-        return uDate_start;
+    String getDateStart() {
+        return dateStart;
     }
 
-    void setuDate_start(String uDate_start) {
-        this.uDate_start = uDate_start;
+    void setDateStart(String dateStart) {
+        this.dateStart = dateStart;
     }
 
-    String getuDate_end() {
-        return uDate_end;
+    String getDateEnd() {
+        return dateEnd;
     }
 
-    void setuDate_end(String uDate_end) {
-        this.uDate_end = uDate_end;
+    void setDateEnd(String dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
-    String getuVolume() {
-        return uVolume;
+    String getVolume() {
+        return volume;
     }
 
-    void setuVolume(String uVolume) {
-        this.uVolume = uVolume;
+    void setVolume(String volume) {
+        this.volume = volume;
     }
 }

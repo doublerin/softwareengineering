@@ -80,14 +80,14 @@ public class Main {
         int vol = 0;
 
         try {
-            start_date = LocalDate.parse(userdata.getuDate_start(), dtf);
-            end_date = LocalDate.parse(userdata.getuDate_end(), dtf);
+            start_date = LocalDate.parse(userdata.getDateStart(), dtf);
+            end_date = LocalDate.parse(userdata.getDateEnd(), dtf);
         } catch (java.time.format.DateTimeParseException e) {
             System.out.println("Invalid Activity");
             System.exit(5);
         }
         try {
-            vol = Integer.valueOf(userdata.getuVolume());
+            vol = Integer.valueOf(userdata.getVolume());
         } catch (java.lang.NumberFormatException e) {
             System.out.println("Invalid Activity");
             System.exit(5);

@@ -3,17 +3,17 @@ package com.example.softwareengineering;
 import java.time.LocalDate;
 
 public class WastedVolume {
-    public String wRole;
-    public String wRes;
-    public LocalDate wDS;
-    public LocalDate wDE;
-    public int wVol;
+    public String role;
+    public String res;
+    public LocalDate dateStart;
+    public LocalDate dateEnd;
+    public int volume;
 
-    public WastedVolume(String wRole, String wRes, LocalDate wDS, LocalDate wDE, int wVol) {
-        this.wRole = wRole;
-        this.wRes = wRes;
-        this.wDS = wDS;
-        this.wDE = wDE;
-        this.wVol = wVol;
+    public WastedVolume(String role, String res, LocalDate dateStart, LocalDate dateEnd, int volume) {
+        this.role = role;
+        this.res = res;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.volume = volume;
     }
 }

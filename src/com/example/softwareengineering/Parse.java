@@ -44,16 +44,16 @@ class Parse {
                 System.out.println("Role: " + aou.getRole());
             }
             if (cmdline.hasOption("ds")) {
-                aou.setuDate_start(cmdline.getOptionValue("ds"));
-                System.out.println("Start Date: " + aou.getuDate_start());
+                aou.setDateStart(cmdline.getOptionValue("ds"));
+                System.out.println("Start Date: " + aou.getDateStart());
             }
             if (cmdline.hasOption("de")) {
-                aou.setuDate_end(cmdline.getOptionValue("de"));
-                System.out.println("End Date: " + aou.getuDate_end());
+                aou.setDateEnd(cmdline.getOptionValue("de"));
+                System.out.println("End Date: " + aou.getDateEnd());
             }
             if (cmdline.hasOption("vol")) {
-                aou.setuVolume(cmdline.getOptionValue("vol"));
-                System.out.println("Volume: " + aou.getuVolume());
+                aou.setVolume(cmdline.getOptionValue("vol"));
+                System.out.println("Volume: " + aou.getVolume());
             }
             if (cmdline.hasOption("h")||aou.isEmpty()) {
                 printHelp(forhelp);
