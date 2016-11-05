@@ -40,6 +40,3 @@ java -cp "out\artifacts\soft\soft.jar;lib\commons-cli-1.3.1.jar" com.example.sof
 echo !!! %errorlevel% 1
 java -cp "out\artifacts\soft\soft.jar;lib\commons-cli-1.3.1.jar" com.example.softwareengineering.Main -l QQQQ -p QQQQ -ro READ -re QQQQ > NUL
 echo !!! %errorlevel% 1
-
-java -cp "out\artifacts\soft\soft.jar;lib\commons-cli-1.3.1.jar" com.example.softwareengineering.Main -l jdoe -p sup3rpaZZ -ro READ -re a.b.qwe -ds 2015-01-01 -de 2015-12-31 -vol QQQQ > NUL
-echo !!! %errorlevel%
