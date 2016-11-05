@@ -9,15 +9,6 @@ class Userdata {
     private String dateEnd;
     private String volume;
 
-    Userdata() {
-        this.login = null;
-        this.password = null;
-        this.resource = null;
-        this.role = null;
-        this.dateStart = null;
-        this.dateEnd = null;
-        this.volume = null;
-    }
 
     boolean isEmpty() {
         return((login ==null)&&(password ==null)&&(role ==null)&&(resource ==null)&&(dateStart ==null)

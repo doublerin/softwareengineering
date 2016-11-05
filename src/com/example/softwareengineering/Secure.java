@@ -15,9 +15,9 @@ class Secure {
         try {
             MessageDigest md = MessageDigest.getInstance("md5");
             byte[] array = md.digest(md5.getBytes());
-            StringBuffer sb = new StringBuffer();
-            for (byte anArray : array) {
-                sb.append(Integer.toHexString((anArray & 0xFF) | 0x100).substring(1, 3));
+            StringBuilder sb = new StringBuilder();
+            for (byte b : array) {
+                sb.append(Integer.toHexString(b & 0xFF));
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
