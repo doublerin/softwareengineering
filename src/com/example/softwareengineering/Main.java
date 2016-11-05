@@ -123,7 +123,6 @@ public class Main {
             Permission.valueOf(userdata.getRole());
             return true;
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
             return false;
         }
 
@@ -132,8 +131,8 @@ public class Main {
     private static boolean isCorrectResource(Userdata userdata,
                                              ArrayList<Role> anArrayOfRoles) {
         for (Role anArrayOfRole : anArrayOfRoles) {
-            if (userdata.getPermission().equals(anArrayOfRole.rName) &&
-                    isDivide(anArrayOfRole.rResource, userdata.getResource())) {
+            if (userdata.getPermission().equals(anArrayOfRole.name) &&
+                    isDivide(anArrayOfRole.resource, userdata.getResource())) {
                 return true;
             }
         }
