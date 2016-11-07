@@ -14,8 +14,8 @@ test () {
     fi
     return $status
 }
-./BUILD.sh
 
+./BUILD.sh
 
 echo 1.0
 test " " 0
