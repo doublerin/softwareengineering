@@ -1,0 +1,6 @@
+language: java
+before-script:
+./BUILD.sh
+./RUN.sh
+script:
+./TEST.sh
