@@ -1,6 +1,8 @@
 language: java
-before-script:
-./BUILD.sh
-./RUN.sh
+jdk:
+ - oraclejdk8
+before_script:
+ - bash BUILD.sh
+ - chmod +x RUN.sh
 script:
-./TEST.sh
+ - bash TEST.sh
