@@ -1,7 +1,5 @@
 package com.example.softwareengineering;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 class Userdata {
     private String login;
@@ -11,7 +9,6 @@ class Userdata {
     private String dateStart;
     private String dateEnd;
     private String volume;
-    final Logger log = LogManager.getLogger(Userdata.class);
 
 
     boolean isEmpty() {

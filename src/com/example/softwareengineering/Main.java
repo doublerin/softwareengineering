@@ -1,7 +1,6 @@
 package com.example.softwareengineering;
 
 import org.apache.commons.cli.ParseException;
-import org.apache.logging.log4j.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,8 +12,7 @@ public class Main {
 
     public static void main(String[] arg) throws ParseException {
 
-        final Logger log = LogManager.getLogger(Main.class);
-
+        log.info("Program is starting...");
         ArrayList<User> anArrayOfUsers = new ArrayList<>();
         ArrayList<Role> anArrayOfRoles = new ArrayList<>();
 
@@ -53,11 +51,11 @@ public class Main {
                 log.info("Successfully Authent. Exit code: 0");
 
             } else {
-                log.error("Password: "+ userdata.getPassword() +" is Wrong password. Exit code: 2");
+                log.error("Password: " + userdata.getPassword() + " is Wrong password. Exit code: 2");
                 System.exit(2);
             }
         } else {
-            log.error("Login: "+ userdata.getLogin() +" is Unknown user. Exit code: 1");
+            log.error("Login: " + userdata.getLogin() + " is Unknown user. Exit code: 1");
             System.exit(1);
         }
     }
@@ -67,11 +65,11 @@ public class Main {
             if (isCorrectResource(userdata, anArrayOfRoles)) {
                 log.info("Successfully Author. Exit code: 0");
             } else {
-                log.error("Resource: "+ userdata.getResource() +" is Doesn't exist. Exit code: 4");
+                log.error("Resource: " + userdata.getResource() + " is Doesn't exist. Exit code: 4");
                 System.exit(4);
             }
         } else {
-            log.error("Role: "+ userdata.getRole()+" is Unknown Role. Exit code: 3");
+            log.error("Role: " + userdata.getRole() + " is Unknown Role. Exit code: 3");
             System.exit(3);
         }
     }
@@ -86,14 +84,14 @@ public class Main {
             startDate = LocalDate.parse(userdata.getDateStart(), dtf);
             endDate = LocalDate.parse(userdata.getDateEnd(), dtf);
         } catch (java.time.format.DateTimeParseException e) {
-            log.error("Period: "+ userdata.getDateStart() +" - "+ userdata.getDateEnd() +
+            log.error("Period: " + userdata.getDateStart() + " - " + userdata.getDateEnd() +
                     " is Invalid Activity. Exit code: 5");
             System.exit(5);
         }
         try {
             vol = Integer.valueOf(userdata.getVolume());
         } catch (java.lang.NumberFormatException e) {
-            log.error("Volume: "+ userdata.getVolume() +" is Invalid Activity. Exit code: 5");
+            log.error("Volume: " + userdata.getVolume() + " is Invalid Activity. Exit code: 5");
             System.exit(5);
         }
         log.info("Successfully Acc. Exit code: 0");

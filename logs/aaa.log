@@ -1,3 +1,6 @@
-2016-11-12T10:31:27,741 [ERROR] (Main.java:74) - Role: EXECtr is Unknown Role. Exit code: 3
-2016-11-12T10:42:05,065 [INFO ] (Main.java:53) - Successfully Authent. Exit code: 0
-2016-11-12T10:42:05,069 [INFO ] (Main.java:68) - Successfully Author. Exit code: 0
+2016-11-12T10:55:31,503 [INFO ] (Main.java:15) - Program is starting...
+2016-11-12T10:55:31,837 [INFO ] (Main.java:51) - Successfully Authent. Exit code: 0
+2016-11-12T10:55:31,838 [INFO ] (Main.java:66) - Successfully Author. Exit code: 0
+2016-11-12T11:00:48,227 [INFO ] (Main.java:15) - Program is starting...
+2016-11-12T11:00:48,515 [INFO ] (Main.java:51) - Successfully Authent. Exit code: 0
+2016-11-12T11:00:48,516 [INFO ] (Main.java:66) - Successfully Author. Exit code: 0
