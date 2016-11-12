@@ -1,9 +1,14 @@
 package com.example.softwareengineering;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.math.BigInteger;
 import java.security.*;
 
 class Secure {
+
+    final Logger log = LogManager.getLogger(Secure.class);
 
     static String generateSalt() {
         SecureRandom random = new SecureRandom();

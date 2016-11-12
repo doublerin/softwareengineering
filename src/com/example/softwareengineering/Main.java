@@ -1,14 +1,19 @@
 package com.example.softwareengineering;
 
 import org.apache.commons.cli.ParseException;
+import org.apache.logging.log4j.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import static com.example.softwareengineering.Logging.log;
+
 public class Main {
 
     public static void main(String[] arg) throws ParseException {
+
+        final Logger log = LogManager.getLogger(Main.class);
 
         ArrayList<User> anArrayOfUsers = new ArrayList<>();
         ArrayList<Role> anArrayOfRoles = new ArrayList<>();
@@ -45,14 +50,14 @@ public class Main {
     private static void tryAuthent(ArrayList<User> anArrayOfUsers, Userdata userdata) {
         if (isCorrectLogin(userdata, anArrayOfUsers)) {
             if (isCorrectPassword(userdata, anArrayOfUsers)) {
-                System.out.println("Successfully Authent.");
+                log.info("Successfully Authent. Exit code: 0");
 
             } else {
-                System.out.println("Wrong password");
+                log.error("Password: "+ userdata.getPassword() +" is Wrong password. Exit code: 2");
                 System.exit(2);
             }
         } else {
-            System.out.println("Unknown user");
+            log.error("Login: "+ userdata.getLogin() +" is Unknown user. Exit code: 1");
             System.exit(1);
         }
     }
@@ -60,13 +65,13 @@ public class Main {
     private static void tryAuthor(ArrayList<Role> anArrayOfRoles, Userdata userdata) {
         if (isCorrectRole(userdata)) {
             if (isCorrectResource(userdata, anArrayOfRoles)) {
-                System.out.println("Successfully Author.");
+                log.info("Successfully Author. Exit code: 0");
             } else {
-                System.out.println("Doesn't exist");
+                log.error("Resource: "+ userdata.getResource() +" is Doesn't exist. Exit code: 4");
                 System.exit(4);
             }
         } else {
-            System.out.println("Unknown Role");
+            log.error("Role: "+ userdata.getRole()+" is Unknown Role. Exit code: 3");
             System.exit(3);
         }
     }
@@ -81,16 +86,17 @@ public class Main {
             startDate = LocalDate.parse(userdata.getDateStart(), dtf);
             endDate = LocalDate.parse(userdata.getDateEnd(), dtf);
         } catch (java.time.format.DateTimeParseException e) {
-            System.out.println("Invalid Activity");
+            log.error("Period: "+ userdata.getDateStart() +" - "+ userdata.getDateEnd() +
+                    " is Invalid Activity. Exit code: 5");
             System.exit(5);
         }
         try {
             vol = Integer.valueOf(userdata.getVolume());
         } catch (java.lang.NumberFormatException e) {
-            System.out.println("Invalid Activity");
+            log.error("Volume: "+ userdata.getVolume() +" is Invalid Activity. Exit code: 5");
             System.exit(5);
         }
-        System.out.println("Successfully Acc.");
+        log.info("Successfully Acc. Exit code: 0");
         ArrayList<WastedVolume> wasted = new ArrayList<>();
         wasted.add(new WastedVolume(userdata.getRole(), userdata.getResource(),
                 startDate, endDate, vol));

@@ -1,10 +1,15 @@
 package com.example.softwareengineering;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 class Role {
     private int id;
     private User user;
     Permission name;
     String resource;
+
+    final Logger log = LogManager.getLogger(Role.class);
 
     Role(int id, User user, Permission name, String resource) {
         this.id = id;

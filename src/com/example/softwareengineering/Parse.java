@@ -1,10 +1,13 @@
 package com.example.softwareengineering;
 
 import org.apache.commons.cli.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 class Parse {
     private Options options = new Options();
     private String[] arg;
+    final Logger log = LogManager.getLogger(Parse.class);
 
     Parse(String[] arg) {
         options.addOption(new Option("l", "login", true, "Your Login:"));
