@@ -1,11 +1,9 @@
 package com.example.softwareengineering;
 
+import com.example.softwareengineering.domain.Accounting;
 import com.example.softwareengineering.domain.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class AaaDao {
 
@@ -30,5 +28,17 @@ public class AaaDao {
         } else {
             return null;
         }
+    }
+
+    public int addAcc(Accounting accounting) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("INSERT INTO ACCOUNTING (DATE_START, DATE_END, VOLUME, ROLE_ID) VALUES (?, ?, ?, ?)");
+        ps.setDate(1, Date.valueOf(accounting.getDateStart()));
+        ps.setDate(2, Date.valueOf(accounting.getDateEnd()));
+        ps.setInt(3, accounting.getVolume());
+        ps.setInt(4, accounting.getRole().getId());
+        ps.executeUpdate();
+        ResultSet rs = ps.getGeneratedKeys();
+        rs.next();
+        return rs.getInt(1);
     }
 }

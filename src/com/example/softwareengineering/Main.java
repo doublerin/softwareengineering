@@ -1,5 +1,6 @@
 package com.example.softwareengineering;
 
+import com.example.softwareengineering.domain.Accounting;
 import com.example.softwareengineering.domain.Permission;
 import com.example.softwareengineering.domain.Role;
 import com.example.softwareengineering.domain.User;
@@ -23,9 +24,9 @@ public class Main {
         flyway.setDataSource("jdbc:h2:file:./aaa", "aaa", "aaa");
         flyway.migrate();
         Connection con = DriverManager.getConnection("jdbc:h2:file:./aaa", "aaa", "aaa");
-
+        AaaDao aaaDao = new AaaDao(con);
         log.info("Program is starting...");
-        ArrayList<User> anArrayOfUsers = new ArrayList<>();
+        /*ArrayList<User> anArrayOfUsers = new ArrayList<>();
         ArrayList<Role> anArrayOfRoles = new ArrayList<>();
 
         anArrayOfUsers.add(new User(1, "jdoe", "sup3rpaZZ", "John Doe"));
@@ -35,20 +36,20 @@ public class Main {
         anArrayOfRoles.add(new Role(2, anArrayOfUsers.get(0), Permission.WRITE, "a.b"));
         anArrayOfRoles.add(new Role(3, anArrayOfUsers.get(1), Permission.EXECUTE, "a.b.c"));
         anArrayOfRoles.add(new Role(4, anArrayOfUsers.get(0), Permission.EXECUTE, "a.bc"));
-
+*/
         Userdata userdata = new Parse(arg).parseCMD();
 
         if (userdata.isAuthentication()) {
-            tryAuthent(anArrayOfUsers, userdata);
+            tryAuthent(aaaDao, userdata);
             if (!userdata.isAuthorization()) {
                 System.exit(0);
             } else {
-                tryAuthor(anArrayOfRoles, userdata);
+                tryAuthor(aaaDao, userdata);
             }
             if (!userdata.isAccounting()) {
                 System.exit(0);
             } else {
-                tryAcc(userdata);
+                tryAcc(aaaDao, userdata);
             }
 
         } else {
@@ -57,9 +58,9 @@ public class Main {
     }
 
 
-    private static void tryAuthent(ArrayList<User> anArrayOfUsers, Userdata userdata) {
-        if (isCorrectLogin(userdata, anArrayOfUsers)) {
-            if (isCorrectPassword(userdata, anArrayOfUsers)) {
+    private static void tryAuthent(AaaDao aaaDao, Userdata userdata) {
+        if (isCorrectLogin(userdata, aaaDao)) {
+            if (isCorrectPassword(userdata, aaaDao)) {
                 log.info("Successfully Authent. Exit code: 0");
 
             } else {
@@ -72,9 +73,9 @@ public class Main {
         }
     }
 
-    private static void tryAuthor(ArrayList<Role> anArrayOfRoles, Userdata userdata) {
+    private static void tryAuthor(AaaDao aaaDao, Userdata userdata) {
         if (isCorrectRole(userdata)) {
-            if (isCorrectResource(userdata, anArrayOfRoles)) {
+            if (isCorrectResource(userdata, aaaDao)) {
                 log.info("Successfully Author. Exit code: 0");
             } else {
                 log.error("Resource: " + userdata.getResource() + " is Doesn't exist. Exit code: 4");
@@ -86,7 +87,7 @@ public class Main {
         }
     }
 
-    private static void tryAcc(Userdata userdata) {
+    private static void tryAcc(AaaDao aaaDao, Userdata userdata) throws SQLException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate startDate = null;
         LocalDate endDate = null;
@@ -107,21 +108,15 @@ public class Main {
             System.exit(5);
         }
         log.info("Successfully Acc. Exit code: 0");
-        ArrayList<WastedVolume> wasted = new ArrayList<>();
-        wasted.add(new WastedVolume(userdata.getRole(), userdata.getResource(),
-                startDate, endDate, vol));
+        Role role = new Role(0, null, null, null);//TODO исправить 
+        aaaDao.addAcc(new Accounting(role, startDate, endDate, vol));
     }
 
-    private static boolean isCorrectLogin(Userdata userdata, ArrayList<User> anArrayOfUsers) {
-        for (User anArrayOfUser : anArrayOfUsers) {
-            if (userdata.getLogin().equals(anArrayOfUser.getLogin())) {
-                return true;
-            }
-        }
-        return false;
+    private static boolean isCorrectLogin(Userdata userdata, AaaDao aaaDao) throws SQLException {
+        return aaaDao.getUser(userdata.getLogin()) != null;
     }
 
-    private static boolean isCorrectPassword(Userdata userdata, ArrayList<User> anArrayOfUsers) {
+    private static boolean isCorrectPassword(Userdata userdata, AaaDao anArrayOfUsers) {
         for (User anArrayOfUser : anArrayOfUsers) {
             String temp = Secure.md5(Secure.md5(userdata.getPassword()) + anArrayOfUser.getSalt());
             if (userdata.getLogin().equals(anArrayOfUser.getLogin())
@@ -143,7 +138,7 @@ public class Main {
     }
 
     private static boolean isCorrectResource(Userdata userdata,
-                                             ArrayList<Role> anArrayOfRoles) {
+                                             AaaDao anArrayOfRoles) {
         for (Role role : anArrayOfRoles) {
             if (userdata.getPermission().equals(role.getName()) &&
                     isDivide(role.getResource(), userdata.getResource())

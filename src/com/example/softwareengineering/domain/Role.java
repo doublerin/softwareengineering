@@ -7,7 +7,7 @@ public class Role {
     Permission name;
     String resource;
 
-    public Role(int id, User user, Permission name, String resource) {
+    public  Role(int id, User user, Permission name, String resource) {
         this.id = id;
         this.user = user;
         this.name = name;
