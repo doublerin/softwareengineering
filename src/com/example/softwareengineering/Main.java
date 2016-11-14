@@ -1,16 +1,27 @@
 package com.example.softwareengineering;
 
 import org.apache.commons.cli.ParseException;
+import org.flywaydb.core.Flyway;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static com.example.softwareengineering.Logging.log;
 
+
 public class Main {
 
-    public static void main(String[] arg) throws ParseException {
+    public static void main(String[] arg) throws ParseException, ClassNotFoundException, SQLException {
+
+        Class.forName("org.h2.Driver");
+        Flyway flyway = new Flyway();
+        flyway.setDataSource("jdbc:h2:file:./aaa", "aaa", "aaa");
+        flyway.migrate();
+        Connection con = DriverManager.getConnection("jdbc:h2:file:./aaa", "aaa", "aaa");
 
         log.info("Program is starting...");
         ArrayList<User> anArrayOfUsers = new ArrayList<>();
