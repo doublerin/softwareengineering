@@ -3,16 +3,16 @@ package com.example.softwareengineering;
 import java.math.BigInteger;
 import java.security.*;
 
-class Secure {
+public class Secure {
 
 
-    static String generateSalt() {
+    public static String generateSalt() {
         SecureRandom random = new SecureRandom();
         return new BigInteger(130, random).toString(32);
     }
 
 
-    static String md5(String md5) {
+    public static String md5(String md5) {
         try {
             MessageDigest md = MessageDigest.getInstance("md5");
             byte[] array = md.digest(md5.getBytes());

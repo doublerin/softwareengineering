@@ -1,11 +1,12 @@
 package com.example.softwareengineering;
 
+import com.example.softwareengineering.domain.Permission;
+import com.example.softwareengineering.domain.Role;
+import com.example.softwareengineering.domain.User;
 import org.apache.commons.cli.ParseException;
 import org.flywaydb.core.Flyway;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -144,8 +145,8 @@ public class Main {
     private static boolean isCorrectResource(Userdata userdata,
                                              ArrayList<Role> anArrayOfRoles) {
         for (Role role : anArrayOfRoles) {
-            if (userdata.getPermission().equals(role.name) &&
-                    isDivide(role.resource, userdata.getResource())
+            if (userdata.getPermission().equals(role.getName()) &&
+                    isDivide(role.getResource(), userdata.getResource())
                     && (userdata.getLogin().equals(role.getUser().getLogin()))
                     ) {
                 return true;

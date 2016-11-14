@@ -1,6 +1,8 @@
 package com.example.softwareengineering;
 
 
+import com.example.softwareengineering.domain.Permission;
+
 class Userdata {
     private String login;
     private String password;
