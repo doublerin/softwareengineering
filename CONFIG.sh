@@ -3,7 +3,7 @@ MAIN="com.example.softwareengineering.Main"
 #Папка с результатами
 OUT="out"
 #Путь к библиотеке
-LIB="lib/commons-cli-1.3.1.jar"
+LIB="lib/*"
 #Исходники
 SRC="src/"
 
@@ -12,8 +12,6 @@ OUT_CLS="$OUT/classes/"
 OUT_LIB="$OUT/lib/"
 
 # Подстановка : или ; в зависимости от операционной системы
-LIB="lib/*"
-OUT_JAR="out/soft.jar"
 if [ "$(uname)" == "Darwin" ]; then
     # Do something under Mac OS X platform
     CP="$LIB:$OUT_JAR"
