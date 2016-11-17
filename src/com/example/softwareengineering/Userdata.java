@@ -30,8 +30,8 @@ class Userdata {
         return (isAuthorization() && (dateStart != null) && (dateEnd != null) && (volume != null));
     }
 
-    Permission getPermission() {
-        return Permission.valueOf(role);
+    String getPermission() {
+        return role;
     }
 
     void setLogin(String login) {
@@ -46,7 +46,7 @@ class Userdata {
         this.resource = resource;
     }
 
-    void setRole(String role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -89,4 +89,5 @@ class Userdata {
     void setVolume(String volume) {
         this.volume = volume;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.softwareengineering;
 
 import com.example.softwareengineering.domain.Accounting;
+import com.example.softwareengineering.domain.Permission;
 import com.example.softwareengineering.domain.User;
 
 import java.sql.*;
@@ -41,4 +42,6 @@ public class AaaDao {
         rs.next();
         return rs.getInt(1);
     }
+
+    //TODO: запросить роль
 }

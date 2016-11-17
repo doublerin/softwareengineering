@@ -7,7 +7,9 @@ import com.example.softwareengineering.domain.User;
 import org.apache.commons.cli.ParseException;
 import org.flywaydb.core.Flyway;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -25,30 +27,21 @@ public class Main {
         Connection con = DriverManager.getConnection("jdbc:h2:file:./aaa", "aaa", "aaa");
         AaaDao aaaDao = new AaaDao(con);
         log.info("Program is starting...");
-        /*ArrayList<User> anArrayOfUsers = new ArrayList<>();
-        ArrayList<Role> anArrayOfRoles = new ArrayList<>();
 
-        anArrayOfUsers.add(new User(1, "jdoe", "sup3rpaZZ", "John Doe"));
-        anArrayOfUsers.add(new User(2, "jrow", "Qweqrty12", "Jane Row"));
-
-        anArrayOfRoles.add(new Role(1, anArrayOfUsers.get(0), Permission.READ, "a"));
-        anArrayOfRoles.add(new Role(2, anArrayOfUsers.get(0), Permission.WRITE, "a.b"));
-        anArrayOfRoles.add(new Role(3, anArrayOfUsers.get(1), Permission.EXECUTE, "a.b.c"));
-        anArrayOfRoles.add(new Role(4, anArrayOfUsers.get(0), Permission.EXECUTE, "a.bc"));
-*/
         Userdata userdata = new Parse(arg).parseCMD();
+        Role role = new Role(0, null, null, null);
 
         if (userdata.isAuthentication()) {
             tryAuthent(aaaDao, userdata);
             if (!userdata.isAuthorization()) {
                 System.exit(0);
             } else {
-                tryAuthor(aaaDao, userdata);
+                tryAuthor(aaaDao, userdata, role);
             }
             if (!userdata.isAccounting()) {
                 System.exit(0);
             } else {
-                tryAcc(aaaDao, userdata);
+                tryAcc(aaaDao, userdata, role);
             }
 
         } else {
@@ -72,9 +65,9 @@ public class Main {
         }
     }
 
-    private static void tryAuthor(AaaDao aaaDao, Userdata userdata) throws SQLException {
-        if (isCorrectRole(userdata)) {
-            if (isCorrectResource(userdata, aaaDao)) {
+    private static void tryAuthor(AaaDao aaaDao, Userdata userdata, Role role) throws SQLException {
+        if (isCorrectRole(userdata, role)) {
+            if (isCorrectResource(userdata, aaaDao, role)) {
                 log.info("Successfully Author. Exit code: 0");
             } else {
                 log.error("Resource: " + userdata.getResource() + " doesn't exist. Exit code: 4");
@@ -86,7 +79,7 @@ public class Main {
         }
     }
 
-    private static void tryAcc(AaaDao aaaDao, Userdata userdata) throws SQLException {
+    private static void tryAcc(AaaDao aaaDao, Userdata userdata, Role role) throws SQLException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate startDate = null;
         LocalDate endDate = null;
@@ -107,7 +100,6 @@ public class Main {
             System.exit(5);
         }
         log.info("Successfully Acc. Exit code: 0");
-        Role role = new Role(0, null, null, null);//TODO исправить
         aaaDao.addAcc(new Accounting(role, startDate, endDate, vol));
     }
 
@@ -116,18 +108,18 @@ public class Main {
     }
 
     private static boolean isCorrectPassword(Userdata userdata, AaaDao aaaDao) throws SQLException {
-        User user=null;
-        assert false;
-        String temp = Secure.md5(Secure.md5(userdata.getPassword())+user.getSalt());
+        User user = aaaDao.getUser(userdata.getLogin());
+        String hashpass = Secure.md5(Secure.md5(userdata.getPassword()) + user.getSalt());
         return (aaaDao.getUser(userdata.getLogin()) != null)
-                && temp.equals(aaaDao.getUser(userdata.getPassword()));
+                && hashpass.equals(user.getPassword());
 
     }
 
-    private static boolean isCorrectRole(Userdata userdata) {
+    private static boolean isCorrectRole(Userdata userdata, Role role) {
         try {
-            Permission.valueOf(userdata.getRole());
+            role.setPermission(Permission.valueOf(userdata.getRole()));
             return true;
+
         } catch (IllegalArgumentException e) {
             return false;
         }
@@ -135,10 +127,15 @@ public class Main {
     }
 
     private static boolean isCorrectResource(Userdata userdata,
-                                             AaaDao aaaDao) throws SQLException {
-        return userdata.getPermission().equals(aaaDao.getUser(userdata.getRole())) &&
-                isDivide(String.valueOf(aaaDao.getUser(userdata.getResource())), userdata.getResource())
-                && (userdata.getLogin().equals(aaaDao.getUser(userdata.getRole()).getLogin()));
+                                             AaaDao aaaDao, Role role) throws SQLException {
+        Role role = aaaDao.getUser(userdata.getLogin());
+        //TODO
+//        if (userdata.getPermission().equals(.get) &&
+//                isDivide(String.valueOf(aaaDao.getUser(userdata.getResource())), userdata.getResource())
+//                && (userdata.getLogin().equals(aaaDao.getUser(String.valueOf(userdata.getRole())).getLogin()))) {
+//            role.setResource(userdata.getResource());
+//            return true;
+//        } else return false;
 
     }
 

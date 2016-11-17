@@ -10,7 +10,7 @@ cp $LIB $OUT_LIB
 mkdir -p $OUT_CLS
 
 # Компиляция всех *.java файлов
-find . -name "*.java" | xargs javac -cp "$CP" -d $OUT_CLS -sourcepath $SRC -verbose
+find . -permission "*.java" | xargs javac -cp "$CP" -d $OUT_CLS -sourcepath $SRC -verbose
 
 # Копирование их из $RES в $OUT_CLS
 # cp -r $RES $OUT_CLS
