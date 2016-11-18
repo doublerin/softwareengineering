@@ -3,18 +3,19 @@ package com.example.softwareengineering;
 import com.example.softwareengineering.domain.Accounting;
 import com.example.softwareengineering.domain.Permission;
 import com.example.softwareengineering.domain.User;
+import com.example.softwareengineering.domain.Role;
 
 import java.sql.*;
 
-public class AaaDao {
+class AaaDao {
 
-    Connection con;
+    private Connection con;
 
-    public AaaDao(Connection con) {
+    AaaDao(Connection con) {
         this.con = con;
     }
 
-    public User getUser(String login) throws SQLException {
+    User getUser(String login) throws SQLException {
         PreparedStatement ps = con.prepareStatement("SELECT * FROM USER WHERE LOGIN = ?");
         ps.setString(1, login);
         ResultSet rs = ps.executeQuery();
@@ -31,17 +32,31 @@ public class AaaDao {
         }
     }
 
-    public int addAcc(Accounting accounting) throws SQLException {
+    void addAcc(Accounting accounting) throws SQLException {
         PreparedStatement ps = con.prepareStatement("INSERT INTO ACCOUNTING (DATE_START, DATE_END, VOLUME, ROLE_ID) VALUES (?, ?, ?, ?)");
         ps.setDate(1, Date.valueOf(accounting.getDateStart()));
         ps.setDate(2, Date.valueOf(accounting.getDateEnd()));
         ps.setInt(3, accounting.getVolume());
         ps.setInt(4, accounting.getRole().getId());
-        ps.executeUpdate();
-        ResultSet rs = ps.getGeneratedKeys();
-        rs.next();
-        return rs.getInt(1);
+        ps.execute();
+//        ps.executeUpdate();
+//        ResultSet rs = ps.getGeneratedKeys();
+//        rs.next();
+//        return rs.getInt(1);
     }
 
-    //TODO: запросить роль
+    Role getRole(User user) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM ROLE WHERE USER_ID = ?");
+        ps.setString(1, String.valueOf(user.getId()));
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            Role role = new Role();
+            role.setId(rs.getInt(1));
+            role.setPermission(Permission.valueOf(rs.getString(2)));
+            role.setResource(rs.getString(3));
+            return role;
+        } else {
+            return null;
+        }
+    }
 }

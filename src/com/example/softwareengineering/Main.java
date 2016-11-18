@@ -29,19 +29,22 @@ public class Main {
         log.info("Program is starting...");
 
         Userdata userdata = new Parse(arg).parseCMD();
-        Role role = new Role(0, null, null, null);
+        //!!!!Role role = new Role(0, null, null, null);
 
         if (userdata.isAuthentication()) {
-            tryAuthent(aaaDao, userdata);
+            tryAuthentic(aaaDao, userdata);
+            //!!!!!!!!
+            Role roles = aaaDao.getRole(aaaDao.getUser(userdata.getLogin()));
+            //!!!!!!!!
             if (!userdata.isAuthorization()) {
                 System.exit(0);
             } else {
-                tryAuthor(aaaDao, userdata, role);
+                tryAuthor(aaaDao, userdata, roles);
             }
             if (!userdata.isAccounting()) {
                 System.exit(0);
             } else {
-                tryAcc(aaaDao, userdata, role);
+                tryAcc(aaaDao, userdata, roles);
             }
 
         } else {
@@ -50,7 +53,7 @@ public class Main {
     }
 
 
-    private static void tryAuthent(AaaDao aaaDao, Userdata userdata) throws SQLException {
+    private static void tryAuthentic(AaaDao aaaDao, Userdata userdata) throws SQLException {
         if (isCorrectLogin(userdata, aaaDao)) {
             if (isCorrectPassword(userdata, aaaDao)) {
                 log.info("Successfully Authent. Exit code: 0");
@@ -65,9 +68,9 @@ public class Main {
         }
     }
 
-    private static void tryAuthor(AaaDao aaaDao, Userdata userdata, Role role) throws SQLException {
-        if (isCorrectRole(userdata, role)) {
-            if (isCorrectResource(userdata, aaaDao, role)) {
+    private static void tryAuthor(AaaDao aaaDao, Userdata userdata, Role roles) throws SQLException {
+        if (isCorrectRole(userdata, roles)) {
+            if (isCorrectResource(userdata, aaaDao, roles)) {
                 log.info("Successfully Author. Exit code: 0");
             } else {
                 log.error("Resource: " + userdata.getResource() + " doesn't exist. Exit code: 4");
@@ -116,26 +119,33 @@ public class Main {
     }
 
     private static boolean isCorrectRole(Userdata userdata, Role role) {
-        try {
-            role.setPermission(Permission.valueOf(userdata.getRole()));
+        if (userdata.getRole().equals(Permission.READ)||userdata.getRole().equals(Permission.WRITE)
+                ||userdata.getRole().equals(Permission.EXECUTE)) {
+            role.setPermission(userdata.getRole());
             return true;
-
-        } catch (IllegalArgumentException e) {
+        } else {
             return false;
         }
 
     }
 
     private static boolean isCorrectResource(Userdata userdata,
-                                             AaaDao aaaDao, Role role) throws SQLException {
-        Role role = aaaDao.getUser(userdata.getLogin());
-        //TODO
-//        if (userdata.getPermission().equals(.get) &&
-//                isDivide(String.valueOf(aaaDao.getUser(userdata.getResource())), userdata.getResource())
+                                             AaaDao aaaDao, Role roles) throws SQLException {
+        if (userdata.getRole().equals(roles.getPermission())&&
+                isDivide(roles.getResource(),userdata.getResource())) {
+            roles.setResource(userdata.getResource());
+            return true;
+        } else {
+            return false;
+        }
+//        String role2 = userdata.getRole();
+//        if (userdata.getRole().equals(role.getPermission()) &&
+////                isDivide(String.valueOf(aaaDao.getUser(userdata.getResource())), userdata.getResource())
 //                && (userdata.getLogin().equals(aaaDao.getUser(String.valueOf(userdata.getRole())).getLogin()))) {
 //            role.setResource(userdata.getResource());
 //            return true;
-//        } else return false;
+//        } else
+//        return true;
 
     }
 

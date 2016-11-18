@@ -1,6 +1,5 @@
 package com.example.softwareengineering;
 
-
 import com.example.softwareengineering.domain.Permission;
 
 class Userdata {
@@ -30,40 +29,36 @@ class Userdata {
         return (isAuthorization() && (dateStart != null) && (dateEnd != null) && (volume != null));
     }
 
-    String getPermission() {
-        return role;
-    }
-
-    void setLogin(String login) {
-        this.login = login;
-    }
-
-    void setPassword(String password) {
-        this.password = password;
-    }
-
-    void setResource(String resource) {
-        this.resource = resource;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    String getLogin() {
+    public String getLogin() {
         return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     String getPassword() {
         return password;
     }
 
+    void setPassword(String password) {
+        this.password = password;
+    }
+
     String getResource() {
         return resource;
     }
 
-    String getRole() {
-        return role;
+    void setResource(String resource) {
+        this.resource = resource;
+    }
+
+    public Permission getRole() {
+        return Permission.valueOf(role);
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     String getDateStart() {
@@ -82,12 +77,11 @@ class Userdata {
         this.dateEnd = dateEnd;
     }
 
-    String getVolume() {
+    public String getVolume() {
         return volume;
     }
 
-    void setVolume(String volume) {
+    public void setVolume(String volume) {
         this.volume = volume;
     }
-
 }
