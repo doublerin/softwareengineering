@@ -32,17 +32,16 @@ class AaaDao {
         }
     }
 
-    void addAcc(Accounting accounting) throws SQLException {
+     int addAcc(Accounting accounting) throws SQLException {
         PreparedStatement ps = con.prepareStatement("INSERT INTO ACCOUNTING (DATE_START, DATE_END, VOLUME, ROLE_ID) VALUES (?, ?, ?, ?)");
         ps.setDate(1, Date.valueOf(accounting.getDateStart()));
         ps.setDate(2, Date.valueOf(accounting.getDateEnd()));
         ps.setInt(3, accounting.getVolume());
         ps.setInt(4, accounting.getRole().getId());
-        ps.execute();
-//        ps.executeUpdate();
-//        ResultSet rs = ps.getGeneratedKeys();
-//        rs.next();
-//        return rs.getInt(1);
+        ps.executeUpdate();
+        ResultSet rs = ps.getGeneratedKeys();
+        rs.next();
+        return rs.getInt(1);
     }
 
     Role getRole(User user) throws SQLException {
