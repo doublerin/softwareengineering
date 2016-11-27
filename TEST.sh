@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 ## Это в TEST
 # Подсчет количества ошибочных тестов, обратите внимание на RUN.sh
 result=0 # number of failed tests
